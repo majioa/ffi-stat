@@ -4,79 +4,19 @@ require "ffi/stat"
 
 describe FFI::Stat do
   it "can stat a file" do
-    file = File.expand_path __FILE__
+    ffi_stat = FFI::Stat.stat(__FILE__)
+    rb_stat = File.stat(__FILE__)
 
-    stat_struct = FFI::Stat.stat file
+    ffi_stat[:st_dev].must_equal(rb_stat.dev)
+    ffi_stat[:st_ino].must_equal(rb_stat.ino)
+    ffi_stat[:st_mode].must_equal(rb_stat.mode)
+    ffi_stat[:st_nlink].must_equal(rb_stat.nlink)
+    ffi_stat[:st_uid].must_equal(rb_stat.uid)
+    ffi_stat[:st_gid].must_equal(rb_stat.gid)
+    ffi_stat[:st_rdev].must_equal(rb_stat.rdev)
 
-    stat_struct[:st_dev       ].wont_be_nil
-    stat_struct[:st_ino       ].wont_be_nil
-    stat_struct[:st_mode      ].wont_be_nil
-    stat_struct[:st_nlink     ].wont_be_nil
-    stat_struct[:st_uid       ].wont_be_nil
-    stat_struct[:st_gid       ].wont_be_nil
-    stat_struct[:st_rdev      ].wont_be_nil
-    stat_struct[:st_size      ].wont_be_nil
-
-    stat_struct[:st_atimespec][:tv_sec ].wont_be_nil
-    stat_struct[:st_atimespec][:tv_nsec].wont_be_nil
-    stat_struct[:st_mtimespec][:tv_sec ].wont_be_nil
-    stat_struct[:st_mtimespec][:tv_nsec].wont_be_nil
-    stat_struct[:st_ctimespec][:tv_sec ].wont_be_nil
-    stat_struct[:st_ctimespec][:tv_nsec].wont_be_nil
-
-    stat_struct[:st_blksize   ].wont_be_nil
-    stat_struct[:st_blocks    ].wont_be_nil
-  end
-
-  it "can lstat a file" do
-    file = File.expand_path __FILE__
-
-    stat_struct = FFI::Stat.lstat file
-
-    stat_struct[:st_dev       ].wont_be_nil
-    stat_struct[:st_ino       ].wont_be_nil
-    stat_struct[:st_mode      ].wont_be_nil
-    stat_struct[:st_nlink     ].wont_be_nil
-    stat_struct[:st_uid       ].wont_be_nil
-    stat_struct[:st_gid       ].wont_be_nil
-    stat_struct[:st_rdev      ].wont_be_nil
-    stat_struct[:st_size      ].wont_be_nil
-
-    stat_struct[:st_atimespec][:tv_sec ].wont_be_nil
-    stat_struct[:st_atimespec][:tv_nsec].wont_be_nil
-    stat_struct[:st_mtimespec][:tv_sec ].wont_be_nil
-    stat_struct[:st_mtimespec][:tv_nsec].wont_be_nil
-    stat_struct[:st_ctimespec][:tv_sec ].wont_be_nil
-    stat_struct[:st_ctimespec][:tv_nsec].wont_be_nil
-
-    stat_struct[:st_blksize  ].wont_be_nil
-    stat_struct[:st_blocks   ].wont_be_nil
-  end
-
-  it "can fstat a file descriptor" do
-    file = File.open(__FILE__)
-
-    stat_struct = FFI::Stat.fstat file.fileno
-
-    stat_struct[:st_dev       ].wont_be_nil
-    stat_struct[:st_ino       ].wont_be_nil
-    stat_struct[:st_mode      ].wont_be_nil
-    stat_struct[:st_nlink     ].wont_be_nil
-    stat_struct[:st_uid       ].wont_be_nil
-    stat_struct[:st_gid       ].wont_be_nil
-    stat_struct[:st_rdev      ].wont_be_nil
-    stat_struct[:st_size      ].wont_be_nil
-
-    stat_struct[:st_atimespec][:tv_sec ].wont_be_nil
-    stat_struct[:st_atimespec][:tv_nsec].wont_be_nil
-    stat_struct[:st_mtimespec][:tv_sec ].wont_be_nil
-    stat_struct[:st_mtimespec][:tv_nsec].wont_be_nil
-    stat_struct[:st_ctimespec][:tv_sec ].wont_be_nil
-    stat_struct[:st_ctimespec][:tv_nsec].wont_be_nil
-
-    stat_struct[:st_blksize   ].wont_be_nil
-    stat_struct[:st_blocks    ].wont_be_nil
-
-    file.close
+    ffi_stat[:st_size].must_equal(rb_stat.size)
+    ffi_stat[:st_blksize].must_equal(rb_stat.blksize)
+    ffi_stat[:st_blocks].must_equal(rb_stat.blocks)
   end
 end

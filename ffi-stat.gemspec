@@ -1,23 +1,23 @@
-# -*- encoding: utf-8 -*-
-lib = File.expand_path('../lib', __FILE__)
+# coding: utf-8
+lib = File.expand_path("../lib", __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'ffi/stat/version'
 
-Gem::Specification.new do |gem|
-  gem.name          = "ffi-stat"
-  gem.version       = FFI::Stat::VERSION
-  gem.authors       = ["Adam Tanner"]
-  gem.email         = ["adam@adamtanner.org"]
-  gem.description   = %q{FFI bindings for libc stat}
-  gem.summary       = %q{FFI bindings for libc stat}
-  gem.homepage      = "https://github.com/adamtanner/ffi-stat"
+Gem::Specification.new do |spec|
+  spec.name          = "ffi-stat"
+  spec.version       = "0.1.0"
+  spec.authors       = ["Adam Tanner"]
+  spec.email         = ["adam@adamtanner.org"]
+  spec.description   = %q{ Ruby FFI bindings for stat }
+  spec.summary       = %q{ Ruby FFI bindings for stat }
+  spec.homepage      = "https://github.com/adamtanner/ffi-stat"
+  spec.license       = "MIT"
 
-  gem.files         = `git ls-files`.split($/)
-  gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
-  gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
-  gem.require_paths = ["lib"]
+  spec.files         = `git ls-files`.split($/)
+  spec.executables   = spec.files.grep(%r{^bin/}) {|f| File.basename(f) }
+  spec.test_files    = spec.files.grep(%r{^spec/})
+  spec.require_paths = ["lib"]
 
-  gem.add_dependency "ffi"
-
-  gem.add_development_dependency "rake"
+  spec.add_dependency "ffi"
+  spec.add_development_dependency "bundler", "~> 1.3"
+  spec.add_development_dependency "rake"
 end

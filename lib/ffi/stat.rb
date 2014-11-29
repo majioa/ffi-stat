@@ -1,33 +1,30 @@
 require "ffi"
 
-require "ffi/stat/timespec"
-require "ffi/stat/stat"
-require "ffi/stat/library"
+module FFI::Stat
+  def self.stat(path)
+    stat = FFI::Stat::Stat.new
 
-module FFI
-  module Stat
-    def self.stat(path)
-      stat_struct = FFI::Stat::Stat.new
+    FFI::Stat::Native.stat(path, stat.pointer)
 
-      FFI::Stat::Library.stat(path, stat_struct.pointer)
+    stat
+  end
 
-      stat_struct
-    end
+  def self.lstat(path)
+    stat = FFI::Stat::Stat.new
 
-    def self.lstat(path)
-      stat_struct = FFI::Stat::Stat.new
+    FFI::Stat::Native.lstat(path, stat.pointer)
 
-      FFI::Stat::Library.lstat(path, stat_struct.pointer)
+    stat
+  end
 
-      stat_struct
-    end
+  def self.fstat(fd)
+    stat = FFI::Stat::Stat.new
 
-    def self.fstat(fd)
-      stat_struct = FFI::Stat::Stat.new
+    FFI::Stat::Native.fstat(fd, stat.pointer)
 
-      FFI::Stat::Library.fstat(fd, stat_struct.pointer)
-
-      stat_struct
-    end
+    stat
   end
 end
+
+require "ffi/stat/native"
+require "ffi/stat/#{FFI::Platform::NAME}/stat"

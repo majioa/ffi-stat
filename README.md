@@ -1,12 +1,14 @@
 # FFI::Stat
 
-FFI bindings for libc stat. The primary use of this library is by other FFI libraries that require a stat struct.
+FFI platform-specific bindings for the stat struct and related functions. The
+primary use case of this library is assist other FFI libraries that require a
+stat struct.
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
-    gem 'ffi-stat'
+    gem "ffi-stat"
 
 And then execute:
 
@@ -31,12 +33,15 @@ FFI::Stat.fstat(fd)   #=> FFI::Stat::Stat
 
 ## Platforms
 
-Currently FFI::Stat has only been tested and known to work on Mac OS X Mountain Lion. Support for other OS platforms are on the roadmap.
+FFI::Stat has support for the stat struct on the following platforms:
+
+* x86_64-darwin
 
 ## Contributing
 
 1. Fork it
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create new Pull Request
+4. Ensure all tests pass (`rake test`)
+5. Push to the branch (`git push origin my-new-feature`)
+6. Create new Pull Request
