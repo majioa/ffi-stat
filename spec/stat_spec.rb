@@ -4,6 +4,8 @@ require "ffi/stat"
 
 describe FFI::Stat do
   it "can stat a file" do
+    skip unless FFI::Stat.respond_to?(:stat)
+
     ffi_stat = FFI::Stat.stat(__FILE__)
     rb_stat = File.stat(__FILE__)
 

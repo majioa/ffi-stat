@@ -26,9 +26,11 @@ require "ffi/stat"
 file = "test.txt"
 fd   = $stdin.fileno
 
-FFI::Stat.stat(file)  #=> FFI::Stat::Stat
-FFI::Stat.lstat(file) #=> FFI::Stat::Stat
-FFI::Stat.fstat(fd)   #=> FFI::Stat::Stat
+if FFI::Platform.is_os("darwin")
+  FFI::Stat.stat(file)  #=> FFI::Stat::Stat
+  FFI::Stat.lstat(file) #=> FFI::Stat::Stat
+  FFI::Stat.fstat(fd)   #=> FFI::Stat::Stat
+end
 ```
 
 ## Platforms
@@ -36,6 +38,7 @@ FFI::Stat.fstat(fd)   #=> FFI::Stat::Stat
 FFI::Stat has support for the stat struct on the following platforms:
 
 * x86_64-darwin
+* x86_64-linux
 
 ## Contributing
 

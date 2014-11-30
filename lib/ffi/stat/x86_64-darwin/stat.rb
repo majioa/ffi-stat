@@ -1,4 +1,14 @@
 module FFI::Stat
+  module Native
+    extend FFI::Library
+
+    ffi_lib FFI::Library::LIBC
+
+    attach_function :stat,  [ :string, :pointer ], :int
+    attach_function :lstat, [ :string, :pointer ], :int
+    attach_function :fstat, [ :int, :pointer    ], :int
+  end
+
   class Timespec < FFI::Struct
     layout :tv_sec,  :time_t,
            :tv_nsec, :long
@@ -20,5 +30,29 @@ module FFI::Stat
            :st_blksize,   :blksize_t,
            :st_flags,     :uint32,
            :st_gen,       :uint32
+  end
+
+  def self.stat(path)
+    stat = FFI::Stat::Stat.new
+
+    FFI::Stat::Native.stat(path, stat.pointer)
+
+    stat
+  end
+
+  def self.lstat(path)
+    stat = FFI::Stat::Stat.new
+
+    FFI::Stat::Native.lstat(path, stat.pointer)
+
+    stat
+  end
+
+  def self.fstat(fd)
+    stat = FFI::Stat::Stat.new
+
+    FFI::Stat::Native.fstat(fd, stat.pointer)
+
+    stat
   end
 end
