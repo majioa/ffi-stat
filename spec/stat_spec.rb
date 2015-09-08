@@ -21,4 +21,14 @@ describe FFI::Stat do
     ffi_stat[:st_blksize].must_equal(rb_stat.blksize)
     ffi_stat[:st_blocks].must_equal(rb_stat.blocks)
   end
+
+  it "can matches file times" do
+    skip unless FFI::Stat.respond_to?(:stat)
+
+    ffi_stat = FFI::Stat.stat(__FILE__)
+
+    ffi_stat[:st_mtimespec].to_time.inspect.must_equal(File.mtime(__FILE__).inspect)
+    ffi_stat[:st_atimespec].to_time.inspect.must_equal(File.atime(__FILE__).inspect)
+    ffi_stat[:st_ctimespec].to_time.inspect.must_equal(File.ctime(__FILE__).inspect)
+  end
 end

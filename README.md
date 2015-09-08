@@ -26,11 +26,14 @@ require "ffi/stat"
 file = "test.txt"
 fd   = $stdin.fileno
 
-if FFI::Platform.is_os("darwin")
-  FFI::Stat.stat(file)  #=> FFI::Stat::Stat
-  FFI::Stat.lstat(file) #=> FFI::Stat::Stat
-  FFI::Stat.fstat(fd)   #=> FFI::Stat::Stat
-end
+stat = FFI::Stat.lstat(file) #=> FFI::Stat::Stat
+stat = FFI::Stat.fstat(fd)   #=> FFI::Stat::Stat
+stat = FFI::Stat.stat(file)  #=> FFI::Stat::Stat
+
+# then
+
+stat[:st_size] #=> ~~ size of the file
+stat[:st_mtimespec].to_time #=> file modification time
 ```
 
 ## Platforms
@@ -39,6 +42,7 @@ FFI::Stat has support for the stat struct on the following platforms:
 
 * x86_64-darwin
 * x86_64-linux
+* i386-linux
 
 ## Contributing
 
