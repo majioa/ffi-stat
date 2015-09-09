@@ -27,8 +27,8 @@ describe FFI::Stat do
 
     ffi_stat = FFI::Stat.stat(__FILE__)
 
-    ffi_stat[:st_mtimespec].to_time.inspect.must_equal(File.mtime(__FILE__).inspect)
-    ffi_stat[:st_atimespec].to_time.inspect.must_equal(File.atime(__FILE__).inspect)
-    ffi_stat[:st_ctimespec].to_time.inspect.must_equal(File.ctime(__FILE__).inspect)
+    ffi_stat[:st_mtimespec].to_time.strftime('%c.%N').must_equal(File.mtime(__FILE__).strftime('%c.%N'))
+    ffi_stat[:st_atimespec].to_time.strftime('%c.%N').must_equal(File.atime(__FILE__).strftime('%c.%N'))
+    ffi_stat[:st_ctimespec].to_time.strftime('%c.%N').must_equal(File.ctime(__FILE__).strftime('%c.%N'))
   end
 end

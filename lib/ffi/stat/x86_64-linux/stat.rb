@@ -14,7 +14,7 @@ module FFI::Stat
            :tv_nsec, :long
 
     def to_time
-      Time.at(self[:tv_sec], self[:tv_nsec].to_f/1000)
+      Time.at(self[:tv_sec], (self[:tv_nsec].to_f + 0.5)/1000)
     end
   end
 
