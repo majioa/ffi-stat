@@ -14,7 +14,7 @@ module FFI::Stat
            :tv_nsec, :long
 
     def to_time
-      Time.at(self[:tv_sec], (self[:tv_nsec].to_f + 0.5)/1000)
+      Time.at(self[:tv_sec], self[:tv_nsec].to_r/1000)
     end
   end
 
@@ -31,7 +31,13 @@ module FFI::Stat
            :st_blocks,  :ulong,
            :st_atimespec, FFI::Stat::Timespec,
            :st_mtimespec, FFI::Stat::Timespec,
-           :st_ctimespec, FFI::Stat::Timespec
+           :st_ctimespec, FFI::Stat::Timespec,
+           :add1,       :uint32,
+           :add2,       :uint32,
+           :add3,       :uint32,
+           :add4,       :uint32,
+           :add5,       :uint32,
+           :add6,       :uint32
 
     # workaroungs
     def [] name
