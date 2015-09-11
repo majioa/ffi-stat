@@ -9,10 +9,12 @@ RSpec.describe FFI::Stat do
   }
   subject {
      v = FFI::Stat.stat(__FILE__)
+     p FFI::Platform
+     p FFI::Platform::NAME
      puts v.values.inspect
-     puts v.values[10].values.inspect
-     puts v.values[11].values.inspect
      puts v.values[12].values.inspect
+     puts v.values[13].values.inspect
+     puts v.values[14].values.inspect
      v
   }
 
