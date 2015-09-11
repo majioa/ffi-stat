@@ -3,11 +3,14 @@ require "ffi/stat"
 
 RSpec.describe FFI::Stat do
   let(:rb_stat) {
-     v = File.stat(__FILE__)
-     puts "rb_stat #{v.inspect}"
-     v
+     File.stat(__FILE__)
   }
   subject {
+     puts "File  #{__FILE__}"
+     p File.exist?(__FILE__)
+     s = File.stat(__FILE__)
+     puts "rb_stat #{s.inspect}"
+      
      v = FFI::Stat.stat(__FILE__)
      p FFI::Platform
      p FFI::Platform::NAME
