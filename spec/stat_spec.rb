@@ -12,9 +12,9 @@ RSpec.describe FFI::Stat do
      p FFI::Platform
      p FFI::Platform::NAME
      puts v.values.inspect
-     puts v.values[12].values.inspect
-     puts v.values[13].values.inspect
-     puts v.values[14].values.inspect
+     puts v[:st_mtimespec].values.inspect
+     puts v[:st_atimespec].values.inspect
+     puts v[:st_ctimespec].values.inspect
      v
   }
 
