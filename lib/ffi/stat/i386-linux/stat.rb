@@ -25,12 +25,6 @@ module FFI::Stat
            :st_atimespec, FFI::Stat::Timespec,
            :st_mtimespec, FFI::Stat::Timespec,
            :st_ctimespec, FFI::Stat::Timespec,
-           :add1,       :uint32,
-           :add2,       :uint32,
-           :add3,       :uint32,
-           :add4,       :uint32,
-           :add5,       :uint32,
-           :add6,       :uint32
   end
 
 end

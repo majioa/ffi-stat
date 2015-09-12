@@ -11,22 +11,19 @@ module FFI::Stat
   class Stat < FFI::Struct
     layout :st_dev,     :dev_t,
            :st_ino,     :ino_t,
-           :st_mode,    :mode_t,
            :st_nlink,   :nlink_t,
+           :st_mode,    :mode_t,
            :st_uid,     :uid_t,
            :st_gid,     :gid_t,
            :st_rdev,    :dev_t,
            :st_size,    :off_t,
-           :st_blksize, :ulong,
-           :st_blocks,  :ulong,
+           :st_blksize, :blksize_t,
+           :st_blocks,  :blkcnt_t,
            :st_atimespec, FFI::Stat::Timespec,
            :st_mtimespec, FFI::Stat::Timespec,
            :st_ctimespec, FFI::Stat::Timespec,
-           :add1,       :uint32,
-           :add2,       :uint32,
-           :add3,       :uint32,
-           :add4,       :uint32,
-           :add5,       :uint32,
-           :add6,       :uint32
+           :st_attr,    :mode_t,
+           :__pad0,     :uint64,
+           :__pad1,     :uint64
   end
 end

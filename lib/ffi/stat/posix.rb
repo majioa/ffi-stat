@@ -11,10 +11,14 @@ module Posix
   end
 
   module Functions
+    def mode
+       (FFI::Platform::NAME == 'x86_64-linux') && 1 || 3
+    end
+
     def stat(path)
       stat = FFI::Stat::Stat.new
 
-      FFI::Stat::Posix.__xstat(3, path, stat.pointer)
+      FFI::Stat::Posix.__xstat(mode, path, stat.pointer)
 
       stat
     end
@@ -22,7 +26,7 @@ module Posix
     def lstat(path)
       stat = FFI::Stat::Stat.new
 
-      FFI::Stat::Native.__lxstat(3, path, stat.pointer)
+      FFI::Stat::Native.__lxstat(mode, path, stat.pointer)
 
       stat
     end
@@ -30,7 +34,7 @@ module Posix
     def fstat(fd)
       stat = FFI::Stat::Stat.new
 
-      FFI::Stat::Native.__fxstat(3, fd, stat.pointer)
+      FFI::Stat::Native.__fxstat(mode, fd, stat.pointer)
 
       stat
     end
