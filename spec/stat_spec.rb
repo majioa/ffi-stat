@@ -5,21 +5,7 @@ RSpec.describe FFI::Stat do
   let(:rb_stat) {
      File.stat(__FILE__)
   }
-  subject {
-     puts "File  #{__FILE__}"
-     p File.exist?(__FILE__)
-     s = File.stat(__FILE__)
-     puts "rb_stat #{s.inspect}"
-      
-     v = FFI::Stat.stat(__FILE__)
-     p FFI::Platform
-     p FFI::Platform::NAME
-     puts v.values.inspect
-     puts v[:st_mtimespec].values.inspect
-     puts v[:st_atimespec].values.inspect
-     puts v[:st_ctimespec].values.inspect
-     v
-  }
+  subject { FFI::Stat.stat(__FILE__) }
 
   describe ".stat" do
     context "core fields be valid" do
