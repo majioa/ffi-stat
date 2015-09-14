@@ -4,7 +4,11 @@ module Posix
 
   ffi_lib FFI::Library::LIBC
 
-  if ffi_libraries.first.find_function('__xstat')
+  def self.active?
+    !!ffi_libraries.first.find_function('__xstat')
+  end
+
+  if self.active?
     attach_function :__xstat,  [ :int, :string, :pointer ], :int
     attach_function :__lxstat, [ :int, :string, :pointer ], :int
     attach_function :__fxstat, [ :int, :int,    :pointer ], :int

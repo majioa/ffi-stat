@@ -4,14 +4,18 @@ module Native
 
   ffi_lib FFI::Library::LIBC
 
-  if ffi_libraries.first.find_function('stat')
+  def self.active?
+    !!ffi_libraries.first.find_function('stat')
+  end
+
+  if self.active?
     attach_function :stat,  [ :string, :pointer ], :int
     attach_function :lstat, [ :string, :pointer ], :int
     attach_function :fstat, [ :int,    :pointer ], :int
   end
 
   module Functions
-    def self.stat(path)
+    def stat(path)
       stat = FFI::Stat::Stat.new
   
       FFI::Stat::Native.stat(path, stat.pointer)
@@ -19,7 +23,7 @@ module Native
       stat
     end
   
-    def self.lstat(path)
+    def lstat(path)
       stat = FFI::Stat::Stat.new
   
       FFI::Stat::Native.lstat(path, stat.pointer)
@@ -27,7 +31,7 @@ module Native
       stat
     end
   
-    def self.fstat(fd)
+    def fstat(fd)
       stat = FFI::Stat::Stat.new
   
       FFI::Stat::Native.fstat(fd, stat.pointer)
@@ -37,8 +41,11 @@ module Native
   end
 
   def self.included target
+     p 222222
     if self.methods.include?(:stat)
-      target.extend Functions
+       p 333333
+       p target
+      target.extend( Functions )
     end
   end
 

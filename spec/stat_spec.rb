@@ -26,7 +26,9 @@ RSpec.describe FFI::Stat do
       it { expect(subject[:st_dev]).to be_eql(rb_stat.dev) }
       it { expect(subject[:st_ino]).to be_eql(rb_stat.ino) }
       it { expect(subject[:st_mode]).to be_eql(rb_stat.mode) }
-      it { expect(subject[:st_nlink]).to be_eql(rb_stat.nlink) }
+      if FFI::Platform::NAME =~ /linux/
+        it { expect(subject[:st_nlink]).to be_eql(rb_stat.nlink) }
+      end
       it { expect(subject[:st_uid]).to be_eql(rb_stat.uid) }
       it { expect(subject[:st_gid]).to be_eql(rb_stat.gid) }
       it { expect(subject[:st_rdev]).to be_eql(rb_stat.rdev) }

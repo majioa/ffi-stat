@@ -1,0 +1,13 @@
+language: ruby
+rvm:
+ - ruby-head
+ - rbx
+os:
+ - linux
+ - osx
+env:
+   global:
+    - BUNDLE_JOBS=4
+before_install:
+ - 'rvm use 2.2 --install --binary --fuzzy --create'
+ - 'gem install bundler --version "~> 1.5"'

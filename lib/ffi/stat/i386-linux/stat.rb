@@ -1,5 +1,4 @@
 module FFI::Stat
-
   class Timespec < FFI::Struct
     layout :tv_sec,  :time_t,
            :tv_nsec, :long
@@ -26,5 +25,4 @@ module FFI::Stat
            :st_mtimespec, FFI::Stat::Timespec,
            :st_ctimespec, FFI::Stat::Timespec
   end
-
 end
