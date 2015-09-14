@@ -24,7 +24,7 @@ module FFI::Stat
            :st_blocks,  :ulong,
            :st_atimespec, FFI::Stat::Timespec,
            :st_mtimespec, FFI::Stat::Timespec,
-           :st_ctimespec, FFI::Stat::Timespec,
+           :st_ctimespec, FFI::Stat::Timespec
   end
 
 end
